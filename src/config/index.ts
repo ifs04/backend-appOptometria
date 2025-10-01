@@ -1,10 +1,12 @@
+import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from 'morgan';
-import { sequelize } from "../database/db";
+import sequelize from "../database/connection";
 import { Routes } from "../routes";
-
+var cors = require("cors"); // install en node y types
 
 // Load environment variables from the .env file
+dotenv.config();
 
 export class App {
   public app: Application;
@@ -35,7 +37,7 @@ export class App {
 
 private async dbConnection(): Promise<void> {
   try {
-    await sequelize.sync({ force: true }); // Synchronize the database
+    await sequelize.sync({ force: false }); // Synchronize the database
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
@@ -53,6 +55,8 @@ private routes() {
         this.routePrv.orderDetailRoutes.routes(this.app);
         this.routePrv.visualExamRoutes.routes(this.app);
         this.routePrv.visualHistoryRoutes.routes(this.app);
+        this.routePrv.optometristRoutes.routes(this.app);
+        this.routePrv.paymentRoutes.routes(this.app);
     }
 
 
