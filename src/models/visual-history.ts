@@ -25,11 +25,6 @@ export class VisualHistory extends Model<VisualHistoryI> implements VisualHistor
 
 VisualHistory.init(
   {
-    patient_id: {
-      type: DataTypes.INTEGER,
-      unique: true,
-      allowNull: false,
-    },
     observations: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -56,17 +51,10 @@ VisualHistory.init(
 
 Patient.hasOne(VisualHistory, {
   foreignKey: "patient_id",
-  sourceKey: "id",
-  as: "visualHistory",
-  constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE"
+  sourceKey: "id"
+  
 });
 VisualHistory.belongsTo(Patient, {
   foreignKey: "patient_id",
-  targetKey: "id",
-  as: "patient",
-  constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE"
+  targetKey: "id"
 });

@@ -12,7 +12,7 @@ export interface OrderDetailI {
   product_id?: number;
   quantity: number;
   unit_price: number;
-  graduation?: string;
+  graduation: string;
   subtotal: number;
   status: "ACTIVE" | "INACTIVE";
 }
@@ -25,7 +25,7 @@ export class OrderDetail extends Model<OrderDetailI> implements OrderDetailI {
   public product_id!: number;
   public quantity!: number;
   public unit_price!: number;
-  public graduation?: string;
+  public graduation!: string;
   public subtotal!: number;
   public status!: "ACTIVE" | "INACTIVE";
 }
