@@ -22,9 +22,14 @@ export class VisualHistory extends Model<VisualHistoryI> implements VisualHistor
   public status!: "ACTIVE" | "INACTIVE";
 }
 
+
 VisualHistory.init(
   {
-    
+    patient_id: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      allowNull: false,
+    },
     observations: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -49,11 +54,19 @@ VisualHistory.init(
 
 
 
-Patient.hasMany(VisualHistory, {
+Patient.hasOne(VisualHistory, {
   foreignKey: "patient_id",
-  sourceKey: "id"
+  sourceKey: "id",
+  as: "visualHistory",
+  constraints: true,
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE"
 });
 VisualHistory.belongsTo(Patient, {
   foreignKey: "patient_id",
-  targetKey: "id"
+  targetKey: "id",
+  as: "patient",
+  constraints: true,
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE"
 });

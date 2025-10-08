@@ -20,6 +20,7 @@ export class App {
     this.dbConnection(); // Call the database connection method
 
 
+
   }
 
   // Application settings
@@ -30,6 +31,7 @@ export class App {
 
   private middlewares(): void {
   this.app.use(morgan('dev'));
+  this.app.use(cors());
   this.app.use(express.json()); // leer json raw
   this.app.use(express.urlencoded({ extended: false })); //leer json form
 }
@@ -37,7 +39,7 @@ export class App {
 
 private async dbConnection(): Promise<void> {
   try {
-    await sequelize.sync({ force: false }); // Synchronize the database
+    await sequelize.sync({ force: true }); // Synchronize the database
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
@@ -57,6 +59,7 @@ private routes() {
         this.routePrv.visualHistoryRoutes.routes(this.app);
         this.routePrv.optometristRoutes.routes(this.app);
         this.routePrv.paymentRoutes.routes(this.app);
+
     }
 
 

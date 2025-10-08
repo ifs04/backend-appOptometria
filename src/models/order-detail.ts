@@ -1,6 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import  sequelize  from "../database/connection";
 import { Order } from "./order";
+import { Lens } from "./lens";
+import { Frame } from "./frame";
 
 
 export interface OrderDetailI {
@@ -77,3 +79,16 @@ OrderDetail.belongsTo(Order, {
   foreignKey: "order_id",
   targetKey: "id"
 });
+
+// Relación N:N Order <-> Lens/Frame vía OrderDetail
+Lens.hasMany(OrderDetail, {
+  foreignKey: "product_id",
+  sourceKey: "id",
+});
+OrderDetail.belongsTo(Lens, {
+  foreignKey: "product_id",
+  targetKey: "id",
+});
+
+
+
