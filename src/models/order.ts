@@ -26,7 +26,6 @@ export class Order extends Model<OrderI> implements OrderI {
 
 Order.init(
   {
-    
     date: {
       type: DataTypes.DATE,
       allowNull: false,

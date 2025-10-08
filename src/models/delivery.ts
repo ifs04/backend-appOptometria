@@ -46,7 +46,7 @@ Delivery.init(
 );
 
 
-Order.hasMany(Delivery, {
+Order.hasOne(Delivery, {
   foreignKey: "order_id",
   sourceKey: "id"
 });

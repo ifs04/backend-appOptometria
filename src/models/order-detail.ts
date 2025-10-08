@@ -90,5 +90,13 @@ OrderDetail.belongsTo(Lens, {
   targetKey: "id",
 });
 
+Frame.hasMany(OrderDetail, {
+  foreignKey: "product_id",
+  sourceKey: "id",
+});
+OrderDetail.belongsTo(Frame, {
+  foreignKey: "product_id",
+  targetKey: "id",
+});
 
 
