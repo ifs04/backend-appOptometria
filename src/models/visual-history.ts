@@ -6,7 +6,7 @@ import { Patient } from "./patient";
 
 export interface VisualHistoryI {
   id?: number;
-  patient_id?: number;
+  patient_id: number;
   observations: string;
   date: Date;
   status: "ACTIVE" | "INACTIVE";
@@ -14,7 +14,7 @@ export interface VisualHistoryI {
 
 
 
-export class VisualHistory extends Model<VisualHistoryI> implements VisualHistoryI {
+export class VisualHistory extends Model {
   public id!: number;
   public patient_id!: number;
   public observations!: string;

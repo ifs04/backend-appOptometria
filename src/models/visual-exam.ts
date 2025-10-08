@@ -9,19 +9,19 @@ import { EyeExamI } from "./eye-exam";
 export interface VisualExamI {
   id?: number;
   date: string;
-  prescription?: string;
+  prescription: string;
   od: EyeExamI;
   oi: EyeExamI;
-  appointment_id?: number;
+  appointment_id: number;
   status: "ACTIVE" | "INACTIVE";
 }
 
 
 
-export class VisualExam extends Model<VisualExamI> implements VisualExamI {
+export class VisualExam extends Model {
   public id!: number;
   public date!: string;
-  public prescription?: string;
+  public prescription!: string;
   public od!: EyeExamI;
   public oi!: EyeExamI;
   public appointment_id!: number;

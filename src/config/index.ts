@@ -19,8 +19,6 @@ export class App {
     this.middlewares();
     this.dbConnection(); // Call the database connection method
 
-
-
   }
 
   // Application settings

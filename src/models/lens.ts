@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database/connection";
 import { Supplier } from "./supplier";
+import { OrderDetail } from "./order-detail";
 
 
 export interface LensI {
@@ -11,12 +12,12 @@ export interface LensI {
   treatment?: string;
   price: number;
   stock: number;
-  supplier_id?: number;
+  supplier_id: number;
   status: "ACTIVE" | "INACTIVE";
 }
 
 
-export class Lens extends Model<LensI> implements LensI {
+export class Lens extends Model {
   public id!: number;
   public image!: string;
   public type!: string;
@@ -69,7 +70,6 @@ Lens.init(
 );
 
 
-
 Supplier.hasMany(Lens, {
   foreignKey: "supplier_id",
   sourceKey: "id"
@@ -77,4 +77,13 @@ Supplier.hasMany(Lens, {
 Lens.belongsTo(Supplier, {
   foreignKey: "supplier_id",
   targetKey: "id"
+});
+
+Lens.hasMany(OrderDetail, {
+  foreignKey: "product_id",
+  sourceKey: "id",
+});
+OrderDetail.belongsTo(Lens, {
+  foreignKey: "product_id",
+  targetKey: "id",
 });

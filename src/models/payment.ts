@@ -5,7 +5,7 @@ import { Order } from "./order";
 
 export interface PaymentI {
   id?: number;
-  order_id?: number;
+  order_id: number;
   date: string;
   amount: number;
   method: "CASH" | "CARD" | "TRANSFER";
@@ -13,7 +13,7 @@ export interface PaymentI {
 }
 
 
-export class Payment extends Model<PaymentI> implements PaymentI {
+export class Payment extends Model {
   public id!: number;
   public order_id!: number;
   public date!: string;

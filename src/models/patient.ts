@@ -15,7 +15,7 @@ export interface PatientI {
 }
 
 
-export class Patient extends Model<PatientI> implements PatientI {
+export class Patient extends Model {
   public id!: number;
   public name!: string;
   public age!: number;

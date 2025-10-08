@@ -6,15 +6,15 @@ import { Optometrist } from "./optometrist";
 
 export interface AppointmentI {
   id?: number;
-  patient_id?: number;
-  optometrist_id?: number;
+  patient_id: number;
+  optometrist_id: number;
   date: string;
   reason: string;
   status: "PENDING" | "ATTENDED" | "CANCELLED";
 }
 
 
-export class Appointment extends Model<AppointmentI> implements AppointmentI {
+export class Appointment extends Model {
   public id!: number;
   public date!: string;
   public reason!: string;

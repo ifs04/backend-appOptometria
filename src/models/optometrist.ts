@@ -10,7 +10,7 @@ export interface OptometristI {
   status: "ACTIVE" | "INACTIVE";
 }
 
-export class Optometrist extends Model<OptometristI> implements OptometristI {
+export class Optometrist extends Model {
   public id!: number;
   public name!: string;
   public specialty!: string;

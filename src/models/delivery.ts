@@ -5,14 +5,14 @@ import { Order } from "./order";
 
 export interface DeliveryI {
   id?: number;
-  order_id?: number;
+  order_id: number;
   date: string;
   status: "PENDING" | "READY" | "DELIVERED";
   observations?: string;
 }
 
 
-export class Delivery extends Model<DeliveryI> implements DeliveryI {
+export class Delivery extends Model {
   public id!: number;
   public order_id!: number;
   public date!: string;

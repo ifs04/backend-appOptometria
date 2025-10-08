@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database/connection";
 import { Supplier } from "./supplier";
+import { OrderDetail } from "./order-detail";
 
 
 export interface FrameI {
@@ -83,4 +84,13 @@ Supplier.hasMany(Frame, {
 Frame.belongsTo(Supplier, {
   foreignKey: "supplier_id",
   targetKey: "id"
+});
+
+Frame.hasMany(OrderDetail, {
+  foreignKey: "product_id",
+  sourceKey: "id",
+});
+OrderDetail.belongsTo(Frame, {
+  foreignKey: "product_id",
+  targetKey: "id",
 });

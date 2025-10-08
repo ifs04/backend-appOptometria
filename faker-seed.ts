@@ -14,7 +14,7 @@ import { VisualHistory } from "./src/models/visual-history";
 import { faker } from '@faker-js/faker';
 
 async function seed() {
-  await sequelize.sync();
+  await sequelize.sync({ force: true });
 
   // Patients
   const patients = [];
@@ -25,7 +25,7 @@ async function seed() {
       document_type: faker.helpers.arrayElement(["DNI", "PASSPORT", "ID"]),
       document_number: faker.string.numeric(8),
       gender: faker.helpers.arrayElement(["Male", "Female", "Other"]),
-  phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
+      phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
       email: faker.internet.email(),
       status: "ACTIVE"
     }));
@@ -37,7 +37,7 @@ async function seed() {
     optometrists.push(await Optometrist.create({
       name: faker.person.fullName(),
       specialty: faker.helpers.arrayElement(["General", "Pediatric", "Surgery"]),
-  phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
+      phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
       email: faker.internet.email(),
       status: "ACTIVE"
     }));
@@ -48,7 +48,7 @@ async function seed() {
   for (let i = 0; i < 100; i++) {
     suppliers.push(await Supplier.create({
       name: faker.company.name(),
-  phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
+      phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })),
       email: faker.internet.email(),
       address: faker.location.streetAddress(),
       status: "ACTIVE"
@@ -57,32 +57,34 @@ async function seed() {
 
   // Frames
   const supplierIds = suppliers.map(s => s.id).filter(Boolean);
+  const frames = [];
   for (let i = 0; i < 100; i++) {
-    await Frame.create({
+    frames.push(await Frame.create({
       brand: faker.company.name(),
       model: faker.commerce.productName(),
       material: faker.helpers.arrayElement(["Metal", "Plastic", "Titanium"]),
       color: faker.color.human(),
-  price: faker.number.float({ min: 50, max: 500, fractionDigits: 2 }),
+      price: faker.number.float({ min: 50, max: 500, fractionDigits: 2 }),
       stock: faker.number.int({ min: 0, max: 100 }),
       supplier_id: faker.helpers.arrayElement(supplierIds),
       image: faker.image.url(),
       status: "ACTIVE"
-    });
+    }));
   }
 
   // Lenses
+  const lenses = [];
   for (let i = 0; i < 100; i++) {
-    await Lens.create({
+    lenses.push(await Lens.create({
       image: faker.image.url(),
       type: faker.helpers.arrayElement(["Single Vision", "Bifocal", "Progressive"]),
       material: faker.helpers.arrayElement(["Polycarbonate", "Glass", "Plastic"]),
       treatment: faker.helpers.arrayElement(["Anti-reflective", "Scratch-resistant", "None"]),
-  price: faker.number.float({ min: 20, max: 300, fractionDigits: 2 }),
+      price: faker.number.float({ min: 20, max: 300, fractionDigits: 2 }),
       stock: faker.number.int({ min: 0, max: 100 }),
       supplier_id: faker.helpers.arrayElement(supplierIds),
       status: "ACTIVE"
-    });
+    }));
   }
 
   // Orders
@@ -94,23 +96,30 @@ async function seed() {
       patient_id: faker.helpers.arrayElement(patientIds),
       optometrist_id: faker.helpers.arrayElement(optometristIds),
       date: faker.date.past().toISOString(),
-  total: faker.number.float({ min: 100, max: 2000, fractionDigits: 2 }),
-  status: "PENDING"
+      total: faker.number.float({ min: 100, max: 2000, fractionDigits: 2 }),
+      status: faker.helpers.arrayElement(["PENDING", "IN_PROCESS", "DELIVERED", "CANCELLED"])
     }));
   }
 
   // OrderDetails
   const orderIds = orders.map(o => o.id).filter(Boolean);
   for (let i = 0; i < 100; i++) {
+    const productType = faker.helpers.arrayElement(["LENS", "FRAME"]);
+    let productId;
+    if (productType === "LENS") {
+      productId = faker.helpers.arrayElement(lenses.map(l => l.id).filter(Boolean));
+    } else {
+      productId = faker.helpers.arrayElement(frames.map(f => f.id).filter(Boolean));
+    }
     await OrderDetail.create({
       order_id: faker.helpers.arrayElement(orderIds),
-      product_type: faker.helpers.arrayElement(["LENS", "FRAME"]),
-      product_id: faker.number.int({ min: 1, max: 100 }),
+      product_type: productType,
+      product_id: productId,
       quantity: faker.number.int({ min: 1, max: 5 }),
-      unit_price: faker.number.float({ min: 20, max: 500,}),
-  graduation: faker.string.alpha(5),
-  subtotal: faker.number.float({ min: 20, max: 2000, fractionDigits: 2 }),
-  status: "ACTIVE"
+      unit_price: faker.number.float({ min: 20, max: 500 }),
+      graduation: faker.string.alpha(5),
+      subtotal: faker.number.float({ min: 20, max: 2000, fractionDigits: 2 }),
+      status: "ACTIVE"
     });
   }
 
@@ -142,31 +151,30 @@ async function seed() {
       date: faker.date.past().toISOString(),
       amount: faker.number.float({ min: 20, max: 2000, fractionDigits: 2 }),
       method: faker.helpers.arrayElement(["CASH", "CARD", "TRANSFER"]),
-      status: "PENDING"
+      status: faker.helpers.arrayElement(["PENDING", "COMPLETED", "FAILED"])
     });
   }
 
   // VisualExams
-  // Get all appointment ids
   const appointmentIds = await Appointment.findAll({ attributes: ['id'] }).then(arr => arr.map(a => a.id).filter(Boolean));
   for (let i = 0; i < 100; i++) {
     await VisualExam.create({
       date: faker.date.past().toISOString(),
       prescription: faker.lorem.sentence(),
-  od: { esf: faker.number.float({ min: -10, max: 10, fractionDigits: 2 }), cyl: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }), axis: faker.number.int({ min: 0, max: 180 }), dp: faker.number.int({ min: 50, max: 75 }) },
-  oi: { esf: faker.number.float({ min: -10, max: 10, fractionDigits: 2 }), cyl: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }), axis: faker.number.int({ min: 0, max: 180 }), dp: faker.number.int({ min: 50, max: 75 }) },
+      od: { esf: faker.number.float({ min: -10, max: 10, fractionDigits: 2 }), cyl: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }), axis: faker.number.int({ min: 0, max: 180 }), dp: faker.number.int({ min: 50, max: 75 }) },
+      oi: { esf: faker.number.float({ min: -10, max: 10, fractionDigits: 2 }), cyl: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }), axis: faker.number.int({ min: 0, max: 180 }), dp: faker.number.int({ min: 50, max: 75 }) },
       appointment_id: faker.helpers.arrayElement(appointmentIds),
-      status: "ACTIVE"
+      status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"])
     });
   }
 
-  // VisualHistories
-  for (let i = 0; i < 100; i++) {
+  // VisualHistories (1:1 por paciente)
+  for (const patient of patients) {
     await VisualHistory.create({
-      patient_id: faker.helpers.arrayElement(patientIds),
+      patient_id: patient.id,
       observations: faker.lorem.sentence(),
       date: faker.date.past(),
-      status: "ACTIVE"
+      status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"])
     });
   }
 

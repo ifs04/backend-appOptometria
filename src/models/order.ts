@@ -2,19 +2,20 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../database/connection";
 import { Patient } from "./patient";
 import { Optometrist } from "./optometrist";
+import { OrderDetail } from "./order-detail";
 
 
 export interface OrderI {
   id?: number;
-  patient_id?: number;
-  optometrist_id?: number;
+  patient_id: number;
+  optometrist_id: number;
   date: string;
   total: number;
   status: "PENDING" | "IN_PROCESS" | "DELIVERED" | "CANCELLED";
 }
 
 
-export class Order extends Model<OrderI> implements OrderI {
+export class Order extends Model {
   public id!: number;
   public patient_id!: number;
   public optometrist_id!: number;
@@ -50,7 +51,6 @@ Order.init(
 
 
 
-
 Patient.hasMany(Order, {
   foreignKey: "patient_id",
   sourceKey: "id"
@@ -66,6 +66,15 @@ Optometrist.hasMany(Order, {
 });
 Order.belongsTo(Optometrist, {
   foreignKey: "optometrist_id",
+  targetKey: "id"
+});
+
+Order.hasMany(OrderDetail, {
+  foreignKey: "order_id",
+  sourceKey: "id"
+});
+OrderDetail.belongsTo(Order, {
+  foreignKey: "order_id",
   targetKey: "id"
 });
 

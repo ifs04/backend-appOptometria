@@ -11,7 +11,7 @@ export interface SupplierI {
   status: "ACTIVE" | "INACTIVE";
 }
 
-export class Supplier extends Model<SupplierI> implements SupplierI {
+export class Supplier extends Model {
   public id!: number;
   public name!: string;
   public phone!: string;

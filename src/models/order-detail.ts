@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import  sequelize  from "../database/connection";
+import sequelize from "../database/connection";
 import { Order } from "./order";
 import { Lens } from "./lens";
 import { Frame } from "./frame";
@@ -7,9 +7,9 @@ import { Frame } from "./frame";
 
 export interface OrderDetailI {
   id?: number;
-  order_id?: number;
+  order_id: number;
   product_type: "LENS" | "FRAME";
-  product_id?: number;
+  product_id: number;
   quantity: number;
   unit_price: number;
   graduation: string;
@@ -18,7 +18,7 @@ export interface OrderDetailI {
 }
 
 
-export class OrderDetail extends Model<OrderDetailI> implements OrderDetailI {
+export class OrderDetail extends Model {
   public id!: number;
   public order_id!: number;
   public product_type!: "LENS" | "FRAME";
@@ -71,32 +71,6 @@ OrderDetail.init(
 
 
 
-Order.hasMany(OrderDetail, {
-  foreignKey: "order_id",
-  sourceKey: "id"
-});
-OrderDetail.belongsTo(Order, {
-  foreignKey: "order_id",
-  targetKey: "id"
-});
 
-// Relación N:N Order <-> Lens/Frame vía OrderDetail
-Lens.hasMany(OrderDetail, {
-  foreignKey: "product_id",
-  sourceKey: "id",
-});
-OrderDetail.belongsTo(Lens, {
-  foreignKey: "product_id",
-  targetKey: "id",
-});
-
-Frame.hasMany(OrderDetail, {
-  foreignKey: "product_id",
-  sourceKey: "id",
-});
-OrderDetail.belongsTo(Frame, {
-  foreignKey: "product_id",
-  targetKey: "id",
-});
 
 
