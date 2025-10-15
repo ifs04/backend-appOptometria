@@ -1,0 +1,77 @@
+### GET all lenses (sin autorización)
+GET http://localhost:3000/lenses/public
+
+### GET all lenses (con autorización)
+GET http://localhost:3000/lenses
+Authorization: Bearer <token>
+
+### GET lens by ID (sin autorización)
+GET http://localhost:3000/lenses/public/1
+
+### GET lens by ID (con autorización)
+GET http://localhost:3000/lenses/1
+Authorization: Bearer <token>
+
+### CREATE lens (sin autorización)
+POST http://localhost:3000/lenses/public
+Content-Type: application/json
+
+{
+  "image": "url.jpg",
+  "type": "monofocal",
+  "material": "acrylic",
+  "treatment": "anti-reflective",
+  "price": 100,
+  "stock": 10,
+  "supplier_id": 1,
+  "status": "ACTIVE"
+}
+
+### CREATE lens (con autorización)
+POST http://localhost:3000/lenses
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "image": "url.jpg",
+  "type": "monofocal",
+  "material": "acrylic",
+  "treatment": "anti-reflective",
+  "price": 100,
+  "stock": 10,
+  "supplier_id": 1,
+  "status": "ACTIVE"
+}
+
+### UPDATE lens (sin autorización)
+PATCH http://localhost:3000/lenses/public/1
+Content-Type: application/json
+
+{
+  "price": 120,
+  "stock": 15
+}
+
+### UPDATE lens (con autorización)
+PATCH http://localhost:3000/lenses/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "price": 120,
+  "stock": 15
+}
+
+### DELETE lens físico (sin autorización)
+DELETE http://localhost:3000/lenses/public/1
+
+### DELETE lens físico (con autorización)
+DELETE http://localhost:3000/lenses/1
+Authorization: Bearer <token>
+
+### DELETE lens lógico (sin autorización)
+DELETE http://localhost:4000/lenses/public/1/logic
+
+### DELETE lens lógico (con autorización)
+DELETE http://localhost:3000/lenses/1/logic
+Authorization: Bearer <token>

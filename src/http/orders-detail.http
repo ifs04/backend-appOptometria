@@ -1,0 +1,53 @@
+GET http://localhost:3000/order-details/public
+GET http://localhost:3000/order-details
+Authorization: Bearer <token>
+
+GET http://localhost:3000/order-details/public/1
+GET http://localhost:3000/order-details/1
+Authorization: Bearer <token>
+
+POST http://localhost:3000/order-details/public
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "product_id": 2,
+  "quantity": 3,
+  "price": 400,
+  "status": "ACTIVE"
+}
+
+POST http://localhost:3000/order-details
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "product_id": 2,
+  "quantity": 3,
+  "price": 400,
+  "status": "ACTIVE"
+}
+
+PATCH http://localhost:3000/order-details/public/1
+Content-Type: application/json
+
+{
+  "quantity": 5
+}
+
+PATCH http://localhost:3000/order-details/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "quantity": 5
+}
+
+DELETE http://localhost:3000/order-details/public/1
+DELETE http://localhost:3000/order-details/1
+Authorization: Bearer <token>
+
+DELETE http://localhost:3000/order-details/public/1/logic
+DELETE http://localhost:3000/order-details/1/logic
+Authorization: Bearer <token>

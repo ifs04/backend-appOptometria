@@ -1,0 +1,51 @@
+GET http://localhost:3000/payments/public
+GET http://localhost:3000/payments
+Authorization: Bearer <token>
+
+GET http://localhost:3000/payments/public/1
+GET http://localhost:3000/payments/1
+Authorization: Bearer <token>
+
+POST http://localhost:3000/payments/public
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "amount": 500,
+  "method": "card",
+  "status": "PENDING"
+}
+
+POST http://localhost:3000/payments
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "amount": 500,
+  "method": "card",
+  "status": "PENDING"
+}
+
+PATCH http://localhost:3000/payments/public/1
+Content-Type: application/json
+
+{
+  "status": "PAID"
+}
+
+PATCH http://localhost:3000/payments/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "status": "PAID"
+}
+
+DELETE http://localhost:3000/payments/public/1
+DELETE http://localhost:3000/payments/1
+Authorization: Bearer <token>
+
+DELETE http://localhost:3000/payments/public/1/logic
+DELETE http://localhost:3000/payments/1/logic
+Authorization: Bearer <token>

@@ -1,0 +1,79 @@
+### GET all frames (sin autorización)
+GET http://localhost:3000/frames/public
+
+### GET all frames (con autorización)
+GET http://localhost:3000/frames
+Authorization: Bearer <token>
+
+### GET frame by ID (sin autorización)
+GET http://localhost:3000/frames/public/1
+
+### GET frame by ID (con autorización)
+GET http://localhost:3000/frames/1
+Authorization: Bearer <token>
+
+### CREATE frame (sin autorización)
+POST http://localhost:3000/frames/public
+Content-Type: application/json
+
+{
+  "brand": "RayBan",
+  "model": "RB123",
+  "material": "metal",
+  "color": "black",
+  "price": 200,
+  "stock": 5,
+  "supplier_id": 1,
+  "image": "frame.jpg",
+  "status": "ACTIVE"
+}
+
+### CREATE frame (con autorización)
+POST http://localhost:3000/frames
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "brand": "RayBan",
+  "model": "RB123",
+  "material": "metal",
+  "color": "black",
+  "price": 200,
+  "stock": 5,
+  "supplier_id": 1,
+  "image": "frame.jpg",
+  "status": "ACTIVE"
+}
+
+### UPDATE frame (sin autorización)
+PATCH http://localhost:3000/frames/public/1
+Content-Type: application/json
+
+{
+  "price": 220,
+  "stock": 7
+}
+
+### UPDATE frame (con autorización)
+PATCH http://localhost:3000/frames/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "price": 220,
+  "stock": 7
+}
+
+### DELETE frame físico (sin autorización)
+DELETE http://localhost:3000/frames/public/1
+
+### DELETE frame físico (con autorización)
+DELETE http://localhost:3000/frames/1
+Authorization: Bearer <token>
+
+### DELETE frame lógico (sin autorización)
+DELETE http://localhost:3000/frames/public/1/logic
+
+### DELETE frame lógico (con autorización)
+DELETE http://localhost:3000/frames/1/logic
+Authorization: Bearer <token>

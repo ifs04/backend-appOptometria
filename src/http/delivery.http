@@ -1,0 +1,47 @@
+GET http://localhost:3000/deliveries/public
+GET http://localhost:3000/deliveries
+Authorization: Bearer <token>
+
+GET http://localhost:3000/deliveries/public/1
+GET http://localhost:3000/deliveries/1
+Authorization: Bearer <token>
+
+POST http://localhost:3000/deliveries/public
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "date": "2025-10-15",
+  "status": "ACTIVE",
+  "observations": "Entrega urgente"
+}
+
+POST http://localhost:3000/deliveries
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "order_id": 1,
+  "date": "2025-10-15",
+  "status": "ACTIVE",
+  "observations": "Entrega urgente"
+}
+
+PATCH http://localhost:3000/deliveries/public/1
+Content-Type: application/json
+
+{
+  "observations": "Entrega normal"
+}
+
+PATCH http://localhost:3000/deliveries/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "observations": "Entrega normal"
+}
+
+DELETE http://localhost:3000/deliveries/public/1
+DELETE http://localhost:3000/deliveries/1
+Authorization: Bearer <token>

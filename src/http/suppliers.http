@@ -1,0 +1,53 @@
+GET http://localhost:3000/suppliers/public
+GET http://localhost:3000/suppliers
+Authorization: Bearer <token>
+
+GET http://localhost:3000/suppliers/public/1
+GET http://localhost:3000/suppliers/1
+Authorization: Bearer <token>
+
+POST http://localhost:3000/suppliers/public
+Content-Type: application/json
+
+{
+  "name": "Proveedor S.A.",
+  "phone": "123456789",
+  "email": "proveedor@email.com",
+  "address": "Calle 123",
+  "status": "ACTIVE"
+}
+
+POST http://localhost:3000/suppliers
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "name": "Proveedor S.A.",
+  "phone": "123456789",
+  "email": "proveedor@email.com",
+  "address": "Calle 123",
+  "status": "ACTIVE"
+}
+
+PATCH http://localhost:3000/suppliers/public/1
+Content-Type: application/json
+
+{
+  "phone": "987654321"
+}
+
+PATCH http://localhost:3000/suppliers/1
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "phone": "987654321"
+}
+
+DELETE http://localhost:3000/suppliers/public/1
+DELETE http://localhost:3000/suppliers/1
+Authorization: Bearer <token>
+
+DELETE http://localhost:3000/suppliers/public/1/logic
+DELETE http://localhost:3000/suppliers/1/logic
+Authorization: Bearer <token>
