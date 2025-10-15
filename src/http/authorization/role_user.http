@@ -1,6 +1,6 @@
 ### roleUser.http
 
-@baseUrl = http://localhost:4000
+@baseUrl = http://localhost:3000
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTEyMTQ1LCJleHAiOjE3NjA1MTkzNDV9.JrfPrHna7lZZCyAAMOa3M2_tX_jNzbPzqHBYYGb--zg
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
 
@@ -15,8 +15,8 @@ POST {{baseUrl}}/api/roleUsers/public
 Content-Type: application/json
 
 {
-  "role_id": 1,
-  "user_id": 1,
+  "role_id": 2,
+  "user_id": 2,
   "is_active": "ACTIVE"
 }
 

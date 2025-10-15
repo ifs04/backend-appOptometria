@@ -97,7 +97,7 @@ async function seed() {
       optometrist_id: faker.helpers.arrayElement(optometristIds),
       date: faker.date.past().toISOString(),
       total: faker.number.float({ min: 100, max: 2000, fractionDigits: 2 }),
-      status: faker.helpers.arrayElement(["PENDING", "IN_PROCESS", "DELIVERED", "CANCELLED"])
+      status: faker.helpers.arrayElement(["ACTIVE" , "INACTIVE"])
     }));
   }
 
@@ -130,7 +130,7 @@ async function seed() {
       optometrist_id: faker.helpers.arrayElement(optometristIds),
       date: faker.date.future().toISOString(),
       reason: faker.lorem.sentence(),
-      status: faker.helpers.arrayElement(["PENDING", "ATTENDED", "CANCELLED"])
+      status: faker.helpers.arrayElement(["ACTIVE" , "INACTIVE"])
     });
   }
 
@@ -139,7 +139,7 @@ async function seed() {
     await Delivery.create({
       order_id: faker.helpers.arrayElement(orderIds),
       date: faker.date.future().toISOString(),
-      status: faker.helpers.arrayElement(["PENDING", "READY", "DELIVERED"]),
+      status: faker.helpers.arrayElement(["ACTIVE" , "INACTIVE"]),
       observations: faker.lorem.sentence()
     });
   }
@@ -151,7 +151,7 @@ async function seed() {
       date: faker.date.past().toISOString(),
       amount: faker.number.float({ min: 20, max: 2000, fractionDigits: 2 }),
       method: faker.helpers.arrayElement(["CASH", "CARD", "TRANSFER"]),
-      status: faker.helpers.arrayElement(["PENDING", "COMPLETED", "FAILED"])
+      status: faker.helpers.arrayElement(["ACTIVE" , "INACTIVE"])
     });
   }
 

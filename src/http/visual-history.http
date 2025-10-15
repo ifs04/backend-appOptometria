@@ -1,0 +1,70 @@
+@baseUrl = http://localhost:3000
+@token = 
+
+### Obtener todos los historiales visuales (público)
+GET {{baseUrl}}/visual-histories/public
+
+###
+GET {{baseUrl}}/visual-histories
+Authorization: Bearer {{token}}
+
+### Obtener un historial visual por ID (público)
+GET {{baseUrl}}/visual-histories/public/1
+
+###
+GET {{baseUrl}}/visual-histories/1
+Authorization: Bearer {{token}}
+
+### Crear historial visual (público)
+POST {{baseUrl}}/visual-histories/public
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "optometristId": 1,
+  "date": "2025-10-15",
+  "observations": "Paciente con miopía leve. Se recomienda seguimiento."
+}
+
+###
+POST {{baseUrl}}/visual-histories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "optometristId": 1,
+  "date": "2025-10-15",
+  "observations": "Paciente con miopía leve. Se recomienda seguimiento."
+}
+
+### Actualizar historial visual (público)
+PATCH {{baseUrl}}/visual-histories/public/1
+Content-Type: application/json
+
+{
+  "observations": "Observaciones actualizadas: uso constante de lentes."
+}
+
+###
+PATCH {{baseUrl}}/visual-histories/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "observations": "Observaciones actualizadas: uso constante de lentes."
+}
+
+### Eliminar historial visual (físico)
+DELETE {{baseUrl}}/visual-histories/public/1
+
+###
+DELETE {{baseUrl}}/visual-histories/1
+Authorization: Bearer {{token}}
+
+### Eliminación lógica (cambia a CANCELADO o INACTIVE)
+DELETE {{baseUrl}}/visual-histories/public/101/logic
+
+###
+DELETE {{baseUrl}}/visual-histories/1/logic
+Authorization: Bearer {{token}}

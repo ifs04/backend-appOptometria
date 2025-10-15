@@ -1,0 +1,72 @@
+@baseUrl = http://localhost:3000
+@token = 
+
+### Obtener todos los optometristas (público)
+GET {{baseUrl}}/optometrists/public
+
+###
+GET {{baseUrl}}/optometrists
+Authorization: Bearer {{token}}
+
+### Obtener optometrista por ID (público)
+GET {{baseUrl}}/optometrists/public/1
+
+###
+GET {{baseUrl}}/optometrists/1
+Authorization: Bearer {{token}}
+
+### Crear optometrista (público)
+POST {{baseUrl}}/optometrists/public
+Content-Type: application/json
+
+{
+  "name": "Dra. Laura Pérez",
+  "email": "laura.perez@optica.com",
+  "phone": "3104567890",
+  "specialty": "Optometría general",
+  "status": "ACTIVE"
+}
+
+###
+POST {{baseUrl}}/optometrists
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Dra. Laura Pérez",
+  "email": "laura.perez@optica.com",
+  "phone": "3104567890",
+  "specialty": "Optometría general",
+  "status": "ACTIVE"
+}
+
+### Actualizar optometrista (público)
+PATCH {{baseUrl}}/optometrists/public/101
+Content-Type: application/json
+
+{
+  "phone": "3007894561"
+}
+
+###
+PATCH {{baseUrl}}/optometrists/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "phone": "3007894561"
+}
+
+### Eliminar optometrista (físico)
+DELETE {{baseUrl}}/optometrists/public/10
+
+###
+DELETE {{baseUrl}}/optometrists/1
+Authorization: Bearer {{token}}
+
+### Eliminación lógica (cambia a CANCELADO o INACTIVE)
+DELETE {{baseUrl}}/optometrists/public/101/logic
+
+###
+DELETE {{baseUrl}}/optometrists/1/logic
+Authorization: Bearer {{token}}

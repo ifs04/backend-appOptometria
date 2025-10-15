@@ -1,51 +1,59 @@
-GET http://localhost:3000/payments/public
-GET http://localhost:3000/payments
-Authorization: Bearer <token>
-
-GET http://localhost:3000/payments/public/1
-GET http://localhost:3000/payments/1
-Authorization: Bearer <token>
-
-POST http://localhost:3000/payments/public
+@baseUrl = http://localhost:3000
+@token = 
+GET {{baseUrl}}/payments/public
+###
+GET {{baseUrl}}/payments
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}/payments/public/2
+###
+GET {{baseUrl}}/payments/1
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/payments/public
 Content-Type: application/json
 
 {
   "order_id": 1,
   "amount": 500,
   "method": "card",
-  "status": "PENDING"
+  "date": "2025-06-16 01:48:16",
+  "status": "ACTIVE"
 }
-
-POST http://localhost:3000/payments
-Authorization: Bearer <token>
+###
+POST {{baseUrl}}/payments
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "order_id": 1,
   "amount": 500,
   "method": "card",
-  "status": "PENDING"
+  "date": "2025-06-16 01:48:16",
+  "status": "ACTIVE"
 }
-
-PATCH http://localhost:3000/payments/public/1
+###
+PATCH {{baseUrl}}/payments/public/2
 Content-Type: application/json
 
 {
-  "status": "PAID"
+  "method": "CARD"
 }
-
-PATCH http://localhost:3000/payments/1
-Authorization: Bearer <token>
+###
+PATCH {{baseUrl}}/payments/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "status": "PAID"
+  "method": "CARD"
 }
-
-DELETE http://localhost:3000/payments/public/1
-DELETE http://localhost:3000/payments/1
-Authorization: Bearer <token>
-
-DELETE http://localhost:3000/payments/public/1/logic
-DELETE http://localhost:3000/payments/1/logic
-Authorization: Bearer <token>
+###
+DELETE {{baseUrl}}/payments/public/2
+###
+DELETE {{baseUrl}}/payments/1
+Authorization: Bearer {{token}}
+###
+DELETE {{baseUrl}}/payments/public/15/logic
+###
+DELETE {{baseUrl}}/payments/1/logic
+Authorization: Bearer {{token}}

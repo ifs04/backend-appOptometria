@@ -9,7 +9,7 @@ export interface PaymentI {
   date: string;
   amount: number;
   method: "CASH" | "CARD" | "TRANSFER";
-  status: "PENDING" | "COMPLETED" | "FAILED";
+  status: "ACTIVE" | "INACTIVE";
 }
 
 
@@ -19,7 +19,7 @@ export class Payment extends Model {
   public date!: string;
   public amount!: number;
   public method!: "CASH" | "CARD" | "TRANSFER";
-  public status!: "PENDING" | "COMPLETED" | "FAILED";
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 Payment.init(
@@ -38,8 +38,8 @@ Payment.init(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM("PENDING", "COMPLETED", "FAILED"),
-      defaultValue: "PENDING",
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      defaultValue: "ACTIVE",
     },
   },
   {

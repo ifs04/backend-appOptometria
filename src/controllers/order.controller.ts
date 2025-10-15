@@ -6,7 +6,7 @@ export class OrderController {
   public async getAllOrders(req: Request, res: Response) {
     try {
       const orders: OrderI[] = await Order.findAll({
-        where: { status: 'PENDING' },
+        where: { status: 'ACTIVE' },
       });
       res.status(200).json({ orders });
     } catch (error) {
@@ -19,7 +19,7 @@ export class OrderController {
     try {
       const { id: pk } = req.params;
       const order = await Order.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
       if (order) {
         res.status(200).json(order);
@@ -64,7 +64,7 @@ export class OrderController {
       };
 
       const orderExist = await Order.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
 
       if (orderExist) {
@@ -100,11 +100,11 @@ export class OrderController {
     try {
       const { id: pk } = req.params;
       const orderToUpdate = await Order.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
 
       if (orderToUpdate) {
-        await orderToUpdate.update({ status: 'CANCELLED' });
+        await orderToUpdate.update({ status: 'INACTIVE' });
         res.status(200).json({ message: "Order marked as cancelled" });
       } else {
         res.status(404).json({ error: "Order not found" });

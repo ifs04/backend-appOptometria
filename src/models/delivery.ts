@@ -7,7 +7,7 @@ export interface DeliveryI {
   id?: number;
   order_id: number;
   date: string;
-  status: "PENDING" | "READY" | "DELIVERED";
+  status: "ACTIVE" | "INACTIVE";
   observations?: string;
 }
 
@@ -16,7 +16,7 @@ export class Delivery extends Model {
   public id!: number;
   public order_id!: number;
   public date!: string;
-  public status!: "PENDING" | "READY" | "DELIVERED";
+  public status!: "ACTIVE" | "INACTIVE";
   public observations?: string;
 }
 
@@ -29,8 +29,8 @@ Delivery.init(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM("PENDING", "READY", "DELIVERED"),
-      defaultValue: "PENDING",
+      type: DataTypes.ENUM( "ACTIVE", "INACTIVE"),
+      defaultValue: "ACTIVE",
     },
     observations: {
       type: DataTypes.STRING,

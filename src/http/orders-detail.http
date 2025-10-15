@@ -1,12 +1,33 @@
-GET http://localhost:3000/order-details/public
-GET http://localhost:3000/order-details
-Authorization: Bearer <token>
+@baseUrl = http://localhost:3000
+@token = 
+###
+GET {{baseUrl}}/order-details/public
+###
+GET {{baseUrl}}/order-details
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}/order-details/public/1
+###
+GET {{baseUrl}}/order-details/1
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/order-details/public
+Content-Type: application/json
 
-GET http://localhost:3000/order-details/public/1
-GET http://localhost:3000/order-details/1
-Authorization: Bearer <token>
-
-POST http://localhost:3000/order-details/public
+{
+  "order_id": 2,
+  "product_type":"LENS",
+  "unit_price":500,
+  "subtotal":6222,
+  "product_id": 2,
+  "quantity": 3,
+  "graduation":"-0.1",
+  "price": 400,
+  "status": "ACTIVE"
+}
+###
+POST {{baseUrl}}/order-details
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -16,38 +37,28 @@ Content-Type: application/json
   "price": 400,
   "status": "ACTIVE"
 }
-
-POST http://localhost:3000/order-details
-Authorization: Bearer <token>
+###
+PATCH {{baseUrl}}/order-details/public/105
 Content-Type: application/json
 
 {
-  "order_id": 1,
-  "product_id": 2,
-  "quantity": 3,
-  "price": 400,
-  "status": "ACTIVE"
+  "quantity": 6
 }
-
-PATCH http://localhost:3000/order-details/public/1
+###
+PATCH {{baseUrl}}/order-details/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "quantity": 5
 }
-
-PATCH http://localhost:3000/order-details/1
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "quantity": 5
-}
-
-DELETE http://localhost:3000/order-details/public/1
-DELETE http://localhost:3000/order-details/1
-Authorization: Bearer <token>
-
-DELETE http://localhost:3000/order-details/public/1/logic
-DELETE http://localhost:3000/order-details/1/logic
-Authorization: Bearer <token>
+###
+DELETE {{baseUrl}}/order-details/public/7
+###
+DELETE {{baseUrl}}/order-details/1
+Authorization: Bearer {{token}}
+###
+DELETE {{baseUrl}}/order-details/public/105/logic
+###
+DELETE {{baseUrl}}/order-details/1/logic
+Authorization: Bearer {{token}}

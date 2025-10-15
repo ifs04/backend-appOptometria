@@ -1,32 +1,64 @@
 ### resource.http
 
-@baseUrl = http://localhost:4000
+@baseUrl = http://localhost:3000
 @token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTI4MTM5LCJleHAiOjE3NjA1MzUzMzl9.x8eYuEmhs44XQXvVQf7QIbLXPq1R_8q1323bVbc3sSw
-### Obtener todos los recursos (SIN token)
+### Obtener todos los recursos 
 GET {{baseUrl}}/api/resources/public
 
-### Obtener recurso por ID (SIN token)
+### Obtener recurso por ID 
 GET {{baseUrl}}/api/resources/public/1
 
-### Crear un nuevo recurso (SIN token)
+### Crear un nuevo recurso 
 POST {{baseUrl}}/api/resources/public
 Content-Type: application/json
 
 {
-  "path": "/api/roles",
+  "path": "/patients/",
+  "method": "GET",
+  "is_active": "ACTIVE"
+}
+
+### Crear un nuevo recurso 
+POST {{baseUrl}}/api/resources/public
+Content-Type: application/json
+
+{
+  "path": "/patients/:id",
+  "method": "GET",
+  "is_active": "ACTIVE"
+}
+
+### Crear un nuevo recurso 
+POST {{baseUrl}}/api/resources/public
+Content-Type: application/json
+
+{
+  "path": "/patients",
   "method": "POST",
   "is_active": "ACTIVE"
 }
 
-### Actualizar un recurso (SIN token)
-PATCH {{baseUrl}}/api/resources/public/1
+### Crear un nuevo recurso 
+POST {{baseUrl}}/api/resources/public
 Content-Type: application/json
 
 {
-  "path": "/api/clientes/:id",
-  "method": "GET",
+  "path": "/patients/:id",
+  "method": "DELETE",
   "is_active": "ACTIVE"
 }
+
+### Crear un nuevo recurso 
+POST {{baseUrl}}/api/resources/public
+Content-Type: application/json
+
+{
+  "path": "/patient/:id/logic",
+  "method": "DELETE",
+  "is_active": "ACTIVE"
+}
+
+
 
 ### Eliminar un recurso físicamente (SIN token)
 DELETE {{baseUrl}}/api/resources/public/1
@@ -50,7 +82,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "path": "/api/users",
+  "path": "/api/patients",
   "method": "POST",
   "is_active": "ACTIVE"
 }

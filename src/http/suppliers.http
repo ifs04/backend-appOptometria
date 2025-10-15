@@ -1,12 +1,16 @@
-GET http://localhost:3000/suppliers/public
-GET http://localhost:3000/suppliers
-Authorization: Bearer <token>
-
-GET http://localhost:3000/suppliers/public/1
-GET http://localhost:3000/suppliers/1
-Authorization: Bearer <token>
-
-POST http://localhost:3000/suppliers/public
+@baseUrl = http://localhost:3000
+@token = 
+GET {{baseUrl}}/suppliers/public
+###
+GET {{baseUrl}}/suppliers
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}/suppliers/public/1
+###
+GET {{baseUrl}}/suppliers/1
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/suppliers/public
 Content-Type: application/json
 
 {
@@ -16,9 +20,9 @@ Content-Type: application/json
   "address": "Calle 123",
   "status": "ACTIVE"
 }
-
-POST http://localhost:3000/suppliers
-Authorization: Bearer <token>
+###
+POST {{baseUrl}}/suppliers
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -28,26 +32,28 @@ Content-Type: application/json
   "address": "Calle 123",
   "status": "ACTIVE"
 }
-
-PATCH http://localhost:3000/suppliers/public/1
+###
+PATCH {{baseUrl}}/suppliers/public/1
 Content-Type: application/json
 
 {
   "phone": "987654321"
 }
-
-PATCH http://localhost:3000/suppliers/1
-Authorization: Bearer <token>
+###
+PATCH {{baseUrl}}/suppliers/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "phone": "987654321"
 }
-
-DELETE http://localhost:3000/suppliers/public/1
-DELETE http://localhost:3000/suppliers/1
-Authorization: Bearer <token>
-
-DELETE http://localhost:3000/suppliers/public/1/logic
-DELETE http://localhost:3000/suppliers/1/logic
-Authorization: Bearer <token>
+###
+DELETE {{baseUrl}}/suppliers/public/1
+###
+DELETE {{baseUrl}}/suppliers/1
+Authorization: Bearer {{token}}
+###
+DELETE {{baseUrl}}/suppliers/public/5/logic
+###
+DELETE {{baseUrl}}/suppliers/1/logic
+Authorization: Bearer {{token}}

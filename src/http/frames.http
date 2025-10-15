@@ -1,27 +1,29 @@
+@baseUrl = http://localhost:3000
+@token = 
 ### GET all frames (sin autorización)
-GET http://localhost:3000/frames/public
+GET {{baseUrl}}/frames/public
 
 ### GET all frames (con autorización)
-GET http://localhost:3000/frames
-Authorization: Bearer <token>
+GET {{baseUrl}}/frames
+Authorization: Bearer {{token}}
 
 ### GET frame by ID (sin autorización)
-GET http://localhost:3000/frames/public/1
+GET {{ baseUrl}}/frames/public/2
 
 ### GET frame by ID (con autorización)
-GET http://localhost:3000/frames/1
-Authorization: Bearer <token>
+GET {{baseUrl}}/frames/1
+Authorization: Bearer {{token}}
 
 ### CREATE frame (sin autorización)
-POST http://localhost:3000/frames/public
+POST {{baseUrl}}/frames/public
 Content-Type: application/json
 
 {
   "brand": "RayBan",
-  "model": "RB123",
+  "model": "RB124",
   "material": "metal",
   "color": "black",
-  "price": 200,
+  "price": 500,
   "stock": 5,
   "supplier_id": 1,
   "image": "frame.jpg",
@@ -29,8 +31,8 @@ Content-Type: application/json
 }
 
 ### CREATE frame (con autorización)
-POST http://localhost:3000/frames
-Authorization: Bearer <token>
+POST {{baseUrl}}/frames
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -46,7 +48,7 @@ Content-Type: application/json
 }
 
 ### UPDATE frame (sin autorización)
-PATCH http://localhost:3000/frames/public/1
+PATCH {{baseUrl}}/frames/public/5
 Content-Type: application/json
 
 {
@@ -55,8 +57,8 @@ Content-Type: application/json
 }
 
 ### UPDATE frame (con autorización)
-PATCH http://localhost:3000/frames/1
-Authorization: Bearer <token>
+PATCH {{baseUrl}}/frames/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -65,15 +67,15 @@ Content-Type: application/json
 }
 
 ### DELETE frame físico (sin autorización)
-DELETE http://localhost:3000/frames/public/1
+DELETE {{baseUrl}}/frames/public/6
 
 ### DELETE frame físico (con autorización)
-DELETE http://localhost:3000/frames/1
-Authorization: Bearer <token>
+DELETE {{baseUrl}}/frames/1
+Authorization: Bearer {{token}}
 
 ### DELETE frame lógico (sin autorización)
-DELETE http://localhost:3000/frames/public/1/logic
+DELETE {{baseUrl}}/frames/public/5/logic
 
 ### DELETE frame lógico (con autorización)
-DELETE http://localhost:3000/frames/1/logic
-Authorization: Bearer <token>
+DELETE {{baseUrl}}/frames/1/logic
+Authorization: Bearer {{token}}

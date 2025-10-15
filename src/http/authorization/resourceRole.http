@@ -1,6 +1,6 @@
 ### resourceRole.http
 
-@baseUrl = http://localhost:4000
+@baseUrl = http://localhost:3000
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTEyMTQ1LCJleHAiOjE3NjA1MTkzNDV9.JrfPrHna7lZZCyAAMOa3M2_tX_jNzbPzqHBYYGb--zg
 
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
@@ -8,20 +8,20 @@
 ### Obtener todos los roles de recursos (SIN token)
 GET {{baseUrl}}/api/resourceRoles/public
 
-### Obtener rol de recurso por ID (SIN token)
+### Obtener rol de recurso por ID 
 GET {{baseUrl}}/api/resourceRoles/public/1
 
-### Crear un nuevo rol de recurso (SIN token)
+### Crear un nuevo rol de recurso 
 POST {{baseUrl}}/api/resourceRoles/public
 Content-Type: application/json
 
 {
-  "resource_id": 2,
-  "role_id": 1,
+  "resource_id": 14,
+  "role_id": 2,
   "is_active": "ACTIVE"
 }
 
-### Actualizar un rol de recurso (SIN token)
+### Actualizar un rol de recurso 
 PATCH {{baseUrl}}/api/resourceRoles/public/1
 Content-Type: application/json
 

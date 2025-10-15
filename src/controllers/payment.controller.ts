@@ -6,7 +6,7 @@ export class PaymentController {
   public async getAllPayments(req: Request, res: Response) {
     try {
       const payments: PaymentI[] = await Payment.findAll({
-        where: { status: 'PENDING' },
+        where: { status: 'ACTIVE' },
       });
       res.status(200).json({ payments });
     } catch (error) {
@@ -19,7 +19,7 @@ export class PaymentController {
     try {
       const { id: pk } = req.params;
       const payment = await Payment.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
       if (payment) {
         res.status(200).json(payment);
@@ -64,7 +64,7 @@ export class PaymentController {
       };
 
       const paymentExist = await Payment.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
 
       if (paymentExist) {
@@ -100,11 +100,11 @@ export class PaymentController {
     try {
       const { id: pk } = req.params;
       const paymentToUpdate = await Payment.findOne({
-        where: { id: pk, status: 'PENDING' },
+        where: { id: pk, status: 'ACTIVE' },
       });
 
       if (paymentToUpdate) {
-        await paymentToUpdate.update({ status: 'CANCELLED' });
+        await paymentToUpdate.update({ status: 'INACTIVE' });
         res.status(200).json({ message: "Payment marked as cancelled" });
       } else {
         res.status(404).json({ error: "Payment not found" });

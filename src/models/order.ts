@@ -11,7 +11,7 @@ export interface OrderI {
   optometrist_id: number;
   date: string;
   total: number;
-  status: "PENDING" | "IN_PROCESS" | "DELIVERED" | "CANCELLED";
+  status: "ACTIVE" | "INACTIVE";
 }
 
 
@@ -21,7 +21,7 @@ export class Order extends Model {
   public optometrist_id!: number;
   public date!: string;
   public total!: number;
-  public status!: "PENDING" | "IN_PROCESS" | "DELIVERED" | "CANCELLED";
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 
@@ -37,8 +37,8 @@ Order.init(
       defaultValue: 0,
     },
     status: {
-      type: DataTypes.ENUM("PENDING", "IN_PROCESS", "DELIVERED", "CANCELLED"),
-      defaultValue: "PENDING",
+      type: DataTypes.ENUM("ACTIVE" ,"INACTIVE"),
+      defaultValue: "ACTIVE",
     },
   },
   {

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Delivery, DeliveryI } from "../models/delivery";
+import { isConstructorDeclaration } from "typescript";
 
 export class DeliveryController {
   // Get all deliveries
@@ -86,4 +87,28 @@ export class DeliveryController {
       res.status(500).json({ error: "Error deleting delivery" });
     }
   }
+  // Delete a delivery logically
+  public async DeleteDeliveryAdv(req: Request, res: Response) {
+    try {
+      const { id:pk } = req.params;
+
+      // Buscar por id y status ACTIVE
+      const deliveryToDelete = await Delivery.findOne({
+        where: {
+          id:pk,
+          status: "ACTIVE",
+        },
+      });
+
+      if (deliveryToDelete) {
+        await deliveryToDelete.update({ status: "INACTIVE" });
+        res.status(200).json({ message: "Delivery logically canceled successfully" });
+      } else {
+        res.status(404).json({ error: "Active delivery not found or already canceled" });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Error logically canceling delivery" });
+    }
+  }
+
 }

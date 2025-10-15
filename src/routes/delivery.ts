@@ -16,8 +16,8 @@ export class DeliveryRoutes {
       .patch(this.deliveryController.updateDelivery)
       .delete(this.deliveryController.deleteDelivery);
 
-    // app.route("/deliveries/public/:id/logic")
-    //   .delete(this.deliveryController.deleteDeliveryAdv);
+    app.route("/deliveries/public/:id/logic")
+       .delete(this.deliveryController.DeleteDeliveryAdv);
 
     // ======= RUTAS CON AUTENTICACIÓN =======
     app.route("/deliveries")
@@ -29,7 +29,7 @@ export class DeliveryRoutes {
       .patch(authMiddleware, this.deliveryController.updateDelivery)
       .delete(authMiddleware, this.deliveryController.deleteDelivery);
 
-    // app.route("/deliveries/:id/logic")
-    //   .delete(authMiddleware, this.deliveryController.deleteDeliveryAdv);
+    app.route("/deliveries/:id/logic")
+       .delete(authMiddleware, this.deliveryController.DeleteDeliveryAdv);
   }
 }

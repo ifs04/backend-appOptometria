@@ -1,12 +1,35 @@
-GET http://localhost:3000/deliveries/public
-GET http://localhost:3000/deliveries
-Authorization: Bearer <token>
+### auth.http
+@baseUrl = http://localhost:3000
+@token = 
 
-GET http://localhost:3000/deliveries/public/1
-GET http://localhost:3000/deliveries/1
-Authorization: Bearer <token>
+###deliveries without authentication
+GET {{baseUrl}}/deliveries/public
 
-POST http://localhost:3000/deliveries/public
+###deliveries with authentication
+GET {{baseUrl}}/deliveries
+Authorization: Bearer {{token}}
+
+###deliveries by id without authentication
+GET {{baseUrl}}/deliveries/public/2
+
+###deliveries by id with authentication
+GET {{baseUrl}}/deliveries/1
+Authorization: Bearer {{token}}
+
+###deliveries create without authentication
+POST {{baseUrl}}/deliveries/public
+Content-Type: application/json
+
+{
+  "order_id": 5,
+  "date": "2025-10-16",
+  "status": "ACTIVE",
+  "observations": "Entrega urgente"
+}
+
+###deliveries create with authentication
+POST {{baseUrl}}/deliveries
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -15,33 +38,30 @@ Content-Type: application/json
   "status": "ACTIVE",
   "observations": "Entrega urgente"
 }
-
-POST http://localhost:3000/deliveries
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "order_id": 1,
-  "date": "2025-10-15",
-  "status": "ACTIVE",
-  "observations": "Entrega urgente"
-}
-
-PATCH http://localhost:3000/deliveries/public/1
+###deliveries update without authentication
+PATCH {{baseUrl}}/deliveries/public/5
 Content-Type: application/json
 
 {
   "observations": "Entrega normal"
 }
 
-PATCH http://localhost:3000/deliveries/1
-Authorization: Bearer <token>
+###deliveries update with authentication
+PATCH {{baseUrl}}/deliveries/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "observations": "Entrega normal"
 }
+###deliveries delete without authentication
+DELETE {{baseUrl}}/deliveries/public/5
+###deliveries delete with authentication
+DELETE {{baseUrl}}/deliveries/1
+Authorization: Bearer {{token}}
 
-DELETE http://localhost:3000/deliveries/public/1
-DELETE http://localhost:3000/deliveries/1
-Authorization: Bearer <token>
+###deliveries logical delete without authentication
+DELETE {{baseUrl}}/deliveries/public/7/logic
+###deliveries logical delete with authentication
+DELETE {{baseUrl}}/deliveries/2/logic
+Authorization: Bearer {{token}}

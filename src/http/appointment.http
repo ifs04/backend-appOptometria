@@ -1,0 +1,76 @@
+@baseUrl = http://localhost:3000
+@token = 
+
+### Obtener todas las citas (público)
+GET {{baseUrl}}/appointments/public
+
+###
+GET {{baseUrl}}/appointments
+Authorization: Bearer {{token}}
+
+### Obtener cita por ID (público)
+GET {{baseUrl}}/appointments/public/3
+
+###
+GET {{baseUrl}}/appointments/1
+Authorization: Bearer {{token}}
+
+### Crear cita (público)
+POST {{baseUrl}}/appointments/public
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "optometristId": 3,
+  "date": "2025-10-20",
+  "time": "10:00",
+  "reason": "Control visual anual",
+  "status": "ACTIVE"
+}
+
+###
+POST {{baseUrl}}/appointments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "optometristId": 2,
+  "date": "2025-10-20",
+  "time": "10:00",
+  "reason": "Control visual anual",
+  "status": "ACTIVE"
+}
+
+### Actualizar cita (público)
+PATCH {{baseUrl}}/appointments/public/102
+Content-Type: application/json
+
+{
+  "time": "11:00",
+  "reason": "Cambio de hora de la cita"
+}
+
+###
+PATCH {{baseUrl}}/appointments/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "time": "11:00",
+  "reason": "Cambio de hora de la cita"
+}
+
+### Eliminar cita (físico)
+DELETE {{baseUrl}}/appointments/public/10
+
+###
+DELETE {{baseUrl}}/appointments/1
+Authorization: Bearer {{token}}
+
+### Eliminación lógica (cambia a CANCELADO o INACTIVE)
+DELETE {{baseUrl}}/appointments/public/102/logic
+
+###
+DELETE {{baseUrl}}/appointments/1/logic
+Authorization: Bearer {{token}}

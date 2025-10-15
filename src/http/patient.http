@@ -1,53 +1,113 @@
-//patient.http
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTMxNDc3LCJleHAiOjE3NjA1Mzg2Nzd9.joA14XB1SCWpjwhqwXfT7IwtGEff4U6MVLUYdIhqsB0
+// patients.http
 @baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNTY1NTM2LCJleHAiOjE3NjA1NzI3MzZ9.R3cy66YzNMWCtP4q5cbZZCrD0ggrroiOEjmWejKNzb8
 
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
 
-### Obtener todos los pacientes (Sin token)
-GET {{baseUrl}}/patients/public 
+### Obtener todos los pacientes (SIN token)
+GET {{baseUrl}}/patients/public
 
-### Obtener un paciente por ID (Sin token)
+###
+
+### Obtener un paciente por ID (SIN token)
 GET {{baseUrl}}/patients/public/3
 
-### Crear un nuevo paciente
+###
+
+### Crear un nuevo paciente (SIN token)
 POST {{baseUrl}}/patients/public
 Content-Type: application/json
 
 {
-    "name":"Sandra Salas",
-    "age":20,
-    "document_type":"CC",
-    "document_number":"11188564789",
-    "gender":"Female",
-    "phone":"3043884422",
-    "email":"ss@gmail.com",
-    "status":"ACTIVE"
+  "name": "Luisa Lopesierra",
+  "age": 35,
+  "document_type": "CC",
+  "document_number": "11188564780",
+  "gender": "Female",
+  "phone": "3043884422",
+  "email": "lso@gmail.com",
+  "status": "ACTIVE"
 }
 
-### Actualizar un paciente existente
-PATCH {{baseUrl}}/patients/public/4
+###
+
+### Actualizar un paciente existente (SIN token)
+PATCH {{baseUrl}}/patients/public/103
 Content-Type: application/json
 
 {
-    "name":"Sandra Salas Act",
-    "age":25,
-    "document_type":"CC",
-    "document_number":"1118856479",
-    "gender":"Female",
-    "phone":"3043994411",
-    "email":"s@gmail.com",
-    "status":"ACTIVE"
+  "name": "Sandra Salas Actualizada",
+  "age": 25,
+  "document_type": "CC",
+  "document_number": "1118856479",
+  "gender": "Female",
+  "phone": "3043994411",
+  "email": "s@gmail.com",
+  "status": "ACTIVE"
 }
 
+###
 
 ### Eliminar un paciente físicamente (SIN token)
-DELETE {{baseUrl}}/patients/public/3
+DELETE {{baseUrl}}/patients/public/6
 
-### Eliminar un cliente lógicamente (SIN token)
-DELETE {{baseUrl}}/patients/public/5/logic
+###
+
+### Eliminar un paciente lógicamente (SIN token)
+DELETE {{baseUrl}}/patients/public/103/logic
+
+---
 
 ### ================== RUTAS CON AUTENTICACIÓN ==================
+
 ### Obtener todos los pacientes (CON token)
 GET {{baseUrl}}/patients
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener un paciente por ID (CON token)
+GET {{baseUrl}}/patients/2
+Authorization: Bearer {{token}}
+
+###
+
+### Crear un nuevo paciente (CON token)
+POST {{baseUrl}}/patients
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Carlos Rojas",
+  "age": 30,
+  "document_type": "TI",
+  "document_number": "1122334458",
+  "gender": "Male",
+  "phone": "3001112233",
+  "email": "carlos.roja@email.com",
+  "status": "ACTIVE"
+}
+
+###
+
+### Actualizar un paciente existente (CON token)
+PATCH {{baseUrl}}/patients/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "phone": "3102223344",
+  "email": "carlos.rojas.updated@email.com"
+}
+
+###
+
+### Eliminar un paciente físicamente (CON token)
+DELETE {{baseUrl}}/patients/4
+Authorization: Bearer {{token}}
+
+###
+
+### Eliminar un paciente lógicamente (CON token)
+DELETE {{baseUrl}}/patient/5/logic
 Authorization: Bearer {{token}}

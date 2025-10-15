@@ -10,7 +10,7 @@ export interface AppointmentI {
   optometrist_id: number;
   date: string;
   reason: string;
-  status: "PENDING" | "ATTENDED" | "CANCELLED";
+  status: "ACTIVE" | "INACTIVE";
 }
 
 
@@ -18,7 +18,7 @@ export class Appointment extends Model {
   public id!: number;
   public date!: string;
   public reason!: string;
-  public status!: "PENDING" | "ATTENDED" | "CANCELLED";
+  public status!: "ACTIVE" | "INACTIVE";
   public patient_id!: number;
   public optometrist_id!: number;
 }
@@ -36,8 +36,8 @@ Appointment.init(
       allowNull: true,
     },
     status: {
-      type: DataTypes.ENUM("PENDING", "ATTENDED", "CANCELLED"),
-      defaultValue: "PENDING",
+      type: DataTypes.ENUM("ACTIVE" , "INACTIVE"),
+      defaultValue: "ACTIVE",
     },
   },
   {
