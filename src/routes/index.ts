@@ -39,7 +39,7 @@ export class Routes {
   public roleRoutes: RoleRoutes = new RoleRoutes()
   public roleUserRoutes: RoleUserRoutes = new RoleUserRoutes();
   public refreshTokenRoutes: RefreshTokenRoutes = new RefreshTokenRoutes();
-  public resourceRoutes: ResourceRoutes = new ResourceRoutes(); // Add ResourceRoutes instance
-  public resourceRoleRoutes: ResourceRoleRoutes = new ResourceRoleRoutes(); // Add ResourceRoleRoutes instance
-  public authRoutes: AuthRoutes = new AuthRoutes(); // Add this line
+  public resourceRoutes: ResourceRoutes = new ResourceRoutes(); 
+  public resourceRoleRoutes: ResourceRoleRoutes = new ResourceRoleRoutes(); 
+  public authRoutes: AuthRoutes = new AuthRoutes(); 
 }

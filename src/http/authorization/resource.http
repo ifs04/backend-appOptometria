@@ -1,7 +1,7 @@
 ### resource.http
 
-@baseUrl = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTExMTE1LCJleHAiOjE3NjA1MTgzMTV9.HswCUCRkktv3SCuQwxKcX_1Bchi71T6zhjyvcpt53Vg
+@baseUrl = http://localhost:4000
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTI4MTM5LCJleHAiOjE3NjA1MzUzMzl9.x8eYuEmhs44XQXvVQf7QIbLXPq1R_8q1323bVbc3sSw
 ### Obtener todos los recursos (SIN token)
 GET {{baseUrl}}/api/resources/public
 
@@ -13,8 +13,8 @@ POST {{baseUrl}}/api/resources/public
 Content-Type: application/json
 
 {
-  "path": "/api/clientes",
-  "method": "GET",
+  "path": "/api/roles",
+  "method": "POST",
   "is_active": "ACTIVE"
 }
 

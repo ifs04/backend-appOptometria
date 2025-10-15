@@ -27,30 +27,6 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       return;
     }
 
-    const lastRefreshToken = await RefreshToken.findOne({
-      where: { user_id: user.id },
-      order: [['created_at', 'DESC']],
-    });
-
-    if (!lastRefreshToken) {
-      res.status(401).json({ error: 'No se encontró un refresh token válido.' });
-      return;
-    }
-
-    if (lastRefreshToken.expires_at < new Date()) {
-      const { token: newRefreshToken, expiresAt } = user.generateRefreshToken();
-
-      await RefreshToken.create({
-        user_id: user.id,
-        token: newRefreshToken,
-        device_info: req.headers['user-agent'] || 'unknown',
-        is_valid: true,
-        expires_at: expiresAt,
-      });
-
-      await lastRefreshToken.update({ is_valid: false });
-      res.setHeader('x-reset-token', newRefreshToken);
-    }
 
     const isAuthorized = await validateAuthorization(decoded.id, currentRoute, currentMethod);
     if (!isAuthorized) {

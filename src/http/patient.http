@@ -1,5 +1,5 @@
 //patient.http
-@token = tu_token_jwt_aqui
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTMxNDc3LCJleHAiOjE3NjA1Mzg2Nzd9.joA14XB1SCWpjwhqwXfT7IwtGEff4U6MVLUYdIhqsB0
 @baseUrl = http://localhost:3000
 
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
@@ -26,17 +26,17 @@ Content-Type: application/json
 }
 
 ### Actualizar un paciente existente
-PATCH {{baseUrl}}/patients/public/3
+PATCH {{baseUrl}}/patients/public/4
 Content-Type: application/json
 
 {
-    "name":"Sandra Salas Actualizado",
+    "name":"Sandra Salas Act",
     "age":25,
     "document_type":"CC",
-    "document_number":"11188564789",
+    "document_number":"1118856479",
     "gender":"Female",
     "phone":"3043994411",
-    "email":"ss@gmail.com",
+    "email":"s@gmail.com",
     "status":"ACTIVE"
 }
 
