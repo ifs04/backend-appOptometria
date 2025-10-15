@@ -18,6 +18,8 @@ import { RoleUserRoutes } from "./authorization/role_user";
 import { RefreshTokenRoutes } from "./authorization/refreshToken";
 import { ResourceRoutes } from "./authorization/resource"; // Import ResourceRoutes
 import { ResourceRoleRoutes } from "./authorization/resourceRole"; // Import ResourceRoleRoutes
+import { AuthRoutes } from "./authorization/auth"; // Add this import
+
 
 export class Routes {
   public appointmentRoutes: AppointmentRoutes = new AppointmentRoutes();
@@ -39,4 +41,5 @@ export class Routes {
   public refreshTokenRoutes: RefreshTokenRoutes = new RefreshTokenRoutes();
   public resourceRoutes: ResourceRoutes = new ResourceRoutes(); // Add ResourceRoutes instance
   public resourceRoleRoutes: ResourceRoleRoutes = new ResourceRoleRoutes(); // Add ResourceRoleRoutes instance
+  public authRoutes: AuthRoutes = new AuthRoutes(); // Add this line
 }

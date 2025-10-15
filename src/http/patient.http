@@ -1,15 +1,17 @@
 //patient.http
-
 @token = tu_token_jwt_aqui
+@baseUrl = http://localhost:3000
+
+### ================== RUTAS SIN AUTENTICACIÓN ==================
 
 ### Obtener todos los pacientes (Sin token)
-GET http://localhost:3000/patients
+GET {{baseUrl}}/patients/public 
 
 ### Obtener un paciente por ID (Sin token)
-GET http://localhost:3000/patients/1
+GET {{baseUrl}}/patients/public/3
 
 ### Crear un nuevo paciente
-POST http://localhost:3000/patients
+POST {{baseUrl}}/patients/public
 Content-Type: application/json
 
 {
@@ -22,3 +24,30 @@ Content-Type: application/json
     "email":"ss@gmail.com",
     "status":"ACTIVE"
 }
+
+### Actualizar un paciente existente
+PATCH {{baseUrl}}/patients/public/3
+Content-Type: application/json
+
+{
+    "name":"Sandra Salas Actualizado",
+    "age":25,
+    "document_type":"CC",
+    "document_number":"11188564789",
+    "gender":"Female",
+    "phone":"3043994411",
+    "email":"ss@gmail.com",
+    "status":"ACTIVE"
+}
+
+
+### Eliminar un paciente físicamente (SIN token)
+DELETE {{baseUrl}}/patients/public/3
+
+### Eliminar un cliente lógicamente (SIN token)
+DELETE {{baseUrl}}/patients/public/5/logic
+
+### ================== RUTAS CON AUTENTICACIÓN ==================
+### Obtener todos los pacientes (CON token)
+GET {{baseUrl}}/patients
+Authorization: Bearer {{token}}

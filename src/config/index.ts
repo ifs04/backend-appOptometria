@@ -50,7 +50,7 @@ private async dbConnection(): Promise<void> {
     }
 
     //Sincronizar la base de datos
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     console.log(`📦 Base de datos sincronizada exitosamente`);
 
   } catch (error) {
@@ -78,6 +78,7 @@ private routes() {
         this.routePrv.refreshTokenRoutes.routes(this.app);
         this.routePrv.resourceRoutes.routes(this.app);
         this.routePrv.resourceRoleRoutes.routes(this.app);
+        this.routePrv.authRoutes.routes(this.app)
     }
 
 
