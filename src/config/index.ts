@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from 'morgan';
-import sequelize from "../database/connection";
+import  {sequelize, getDatabaseInfo, testConnection}  from "../database/connection";
+
 import { Routes } from "../routes";
 var cors = require("cors"); // install en node y types
 
@@ -15,8 +16,8 @@ export class App {
   constructor(private port?: number | string) {
     this.app = express();
     this.settings();
-    this.routes();
     this.middlewares();
+    this.routes();
     this.dbConnection(); // Call the database connection method
 
   }
@@ -28,19 +29,33 @@ export class App {
 
 
   private middlewares(): void {
-  this.app.use(morgan('dev'));
-  this.app.use(cors());
-  this.app.use(express.json()); // leer json raw
-  this.app.use(express.urlencoded({ extended: false })); //leer json form
-}
+    this.app.use(morgan('dev'));
+    this.app.use(cors());
+    this.app.use(express.json()); // leer json raw
+    this.app.use(express.urlencoded({ extended: false })); //leer json form
+  }
 
 
 private async dbConnection(): Promise<void> {
   try {
-    await sequelize.sync({ force: true }); // Synchronize the database
-    console.log("Database connected successfully");
+    // Mostrar información de la base de datos seleccionada
+    const dbInfo = getDatabaseInfo();
+    console.log(`🔗 Intentando conectar a: ${dbInfo.engine.toUpperCase()}`);
+
+    // Probar la conexión
+    const isConnected = await testConnection();
+
+    if (!isConnected) {
+      throw new Error(`No se pudo conectar a la base de datos ${dbInfo.engine.toUpperCase()}`);
+    }
+
+    //Sincronizar la base de datos
+    await sequelize.sync({ force: true });
+    console.log(`📦 Base de datos sincronizada exitosamente`);
+
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("❌ Error al conectar con la base de datos:", error);
+    process.exit(1); // Terminar la aplicación si no se puede conectar
   }
 }
 
@@ -57,7 +72,12 @@ private routes() {
         this.routePrv.visualHistoryRoutes.routes(this.app);
         this.routePrv.optometristRoutes.routes(this.app);
         this.routePrv.paymentRoutes.routes(this.app);
-
+        this.routePrv.userRoutes.routes(this.app);
+        this.routePrv.roleRoutes.routes(this.app);
+        this.routePrv.roleUserRoutes.routes(this.app);
+        this.routePrv.refreshTokenRoutes.routes(this.app);
+        this.routePrv.resourceRoutes.routes(this.app);
+        this.routePrv.resourceRoleRoutes.routes(this.app);
     }
 
 
@@ -65,6 +85,6 @@ private routes() {
   // Start the server
   async listen() {
     await this.app.listen(this.app.get('port'));
-    console.log('Server on port', this.app.get('port'));
+    console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get('port')}`);
   }
 }

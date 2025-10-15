@@ -3,67 +3,95 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-let dbConfig: any = {};
 
-switch (process.env.DB_DIALECT) {
-  case 'postgres':
-    dbConfig = {
-      database: process.env.PG_NAME,
-      username: process.env.PG_USER,
-      password: process.env.PG_PASS,
-      host: process.env.PG_HOST,
-      port: Number(process.env.PG_PORT) || 5432,
-      dialect: 'postgres',
-      timezone: process.env.DB_TIMEZONE || 'America/Bogota',
-    };
-    break;
-  case 'mssql':
-    dbConfig = {
-      database: process.env.MSSQL_NAME,
-      username: process.env.MSSQL_USER,
-      password: process.env.MSSQL_PASS,
-      host: process.env.MSSQL_HOST,
-      port: Number(process.env.MSSQL_PORT) || 1433,
-      dialect: 'mssql',
-      timezone: process.env.DB_TIMEZONE || 'America/Bogota',
-      dialectOptions: {
-        options: {
-          encrypt: false,
-        }
-      }
-    };
-    break;
-  case 'oracle':
-    dbConfig = {
-      database: process.env.ORACLE_NAME,
-      username: process.env.ORACLE_USER,
-      password: process.env.ORACLE_PASS,
-      host: process.env.ORACLE_HOST,
-      port: Number(process.env.ORACLE_PORT) || 1521,
-      dialect: 'oracle',
-      dialectOptions: {
-        connectString: `${process.env.ORACLE_HOST}:${process.env.ORACLE_PORT}/${process.env.ORACLE_SID}`
-      },
-      timezone: process.env.DB_TIMEZONE || 'America/Bogota',
-    };
-    break;
-  default: // mysql
-    dbConfig = {
-      database: process.env.DB_NAME,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT) || 3306,
-      dialect: 'mysql',
-      timezone: process.env.DB_TIMEZONE || 'America/Bogota',
-    };
+interface DatabaseConfig {
+  dialect: string;
+  host: string;
+  username: string;
+  password: string;
+  database: string;
+  port: number;
 }
 
-const db = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  dbConfig
-);
+const dbConfigurations: Record<string, DatabaseConfig> = {
+  mysql: {
+    dialect: "mysql",
+    host: process.env.DB_HOST || "localhost",
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "",
+    database: process.env.DB_NAME || "test",
+    port: parseInt(process.env.DB_PORT || "3306")
+  },
+  postgres: {
+    dialect: "postgres",
+    host: process.env.PG_HOST || "localhost",
+    username: process.env.PG_USER || "postgres",
+    password: process.env.PG_PASS || "",
+    database: process.env.PG_NAME || "test",
+    port: parseInt(process.env.PG_PORT || "5432")
+  },
+  mssql: {
+    dialect: "mssql",
+    host: process.env.MSSQL_HOST || "localhost",
+    username: process.env.MSSQL_USER || "postgres",
+    password: process.env.MSSQL_PASS || "",
+    database: process.env.MSSQL_NAME || "test",
+    port: parseInt(process.env.MSSQL_PORT || "5432")
+  },
+  oracle: {
+    dialect: "oracle",
+    host: process.env.ORACLE_HOST || "localhost",
+    username: process.env.ORACLE_USER || "postgres",
+    password: process.env.ORACLE_PASS || "",
+    database: process.env.ORACLE_NAME || "test",
+    port: parseInt(process.env.ORACLE_PORT || "5432")
+  }
+};
 
-export default db;
+const selectedEngine = process.env.DB_ENGINE || "mysql";
+const selectedConfig = dbConfigurations[selectedEngine];
+
+if (!selectedConfig) {
+  throw new Error(`Motor de base de datos no soportado: ${selectedEngine}`);
+}
+
+console.log(`🔌 Conectando a base de datos: ${selectedEngine.toUpperCase()}`);
+
+export const sequelize = new Sequelize(
+  selectedConfig.database,
+  selectedConfig.username,
+  selectedConfig.password,
+  {
+    host: selectedConfig.host,
+    port: selectedConfig.port,
+    dialect: selectedConfig.dialect as any,
+    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+);
+export const getDatabaseInfo = () => {
+  return {
+    engine: selectedEngine,
+    config: selectedConfig,
+    connectionString: `${selectedConfig.dialect}://${selectedConfig.username}@${selectedConfig.host}:${selectedConfig.port}/${selectedConfig.database}`
+  };
+};
+
+export const testConnection = async (): Promise<boolean> => {
+  try {
+    await sequelize.authenticate();
+    console.log(`✅ Conexión exitosa a ${selectedEngine.toUpperCase()}`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Error de conexión a ${selectedEngine.toUpperCase()}:`, error);
+    return false;
+  }
+};
+
+
+

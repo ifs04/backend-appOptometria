@@ -7,5 +7,6 @@ export class PatientRoutes {
   public routes(app: Application): void {
     app.route("/patients").get(this.patientController.getAllPatients);
     app.route("/patients/:id").get(this.patientController.getPatientById);
+    app.route("/patients").post(this.patientController.createPatient);
   }
 }

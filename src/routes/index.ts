@@ -12,6 +12,12 @@ import { PaymentRoutes } from "./payment";
 import { SupplierRoutes } from "./supplier";
 import { VisualExamRoutes } from "./visual-exam";
 import { VisualHistoryRoutes } from "./visual-history";
+import { UserRoutes } from "./authorization/user";
+import { RoleRoutes } from "./authorization/role";
+import { RoleUserRoutes } from "./authorization/role_user";
+import { RefreshTokenRoutes } from "./authorization/refreshToken";
+import { ResourceRoutes } from "./authorization/resource"; // Import ResourceRoutes
+import { ResourceRoleRoutes } from "./authorization/resourceRole"; // Import ResourceRoleRoutes
 
 export class Routes {
   public appointmentRoutes: AppointmentRoutes = new AppointmentRoutes();
@@ -27,4 +33,10 @@ export class Routes {
   public supplierRoutes: SupplierRoutes = new SupplierRoutes();
   public visualExamRoutes: VisualExamRoutes = new VisualExamRoutes();
   public visualHistoryRoutes: VisualHistoryRoutes = new VisualHistoryRoutes();
+  public userRoutes: UserRoutes = new UserRoutes();
+  public roleRoutes: RoleRoutes = new RoleRoutes()
+  public roleUserRoutes: RoleUserRoutes = new RoleUserRoutes();
+  public refreshTokenRoutes: RefreshTokenRoutes = new RefreshTokenRoutes();
+  public resourceRoutes: ResourceRoutes = new ResourceRoutes(); // Add ResourceRoutes instance
+  public resourceRoleRoutes: ResourceRoleRoutes = new ResourceRoleRoutes(); // Add ResourceRoleRoutes instance
 }

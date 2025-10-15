@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../database/connection";
+import {sequelize} from "../database/connection";
 import { Order } from "./order";
 import { Lens } from "./lens";
 import { Frame } from "./frame";

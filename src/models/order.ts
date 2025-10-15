@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../database/connection";
+import {sequelize} from "../database/connection";
 import { Patient } from "./patient";
 import { Optometrist } from "./optometrist";
 import { OrderDetail } from "./order-detail";

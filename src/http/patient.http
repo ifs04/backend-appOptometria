@@ -1,0 +1,24 @@
+//patient.http
+
+@token = tu_token_jwt_aqui
+
+### Obtener todos los pacientes (Sin token)
+GET http://localhost:3000/patients
+
+### Obtener un paciente por ID (Sin token)
+GET http://localhost:3000/patients/1
+
+### Crear un nuevo paciente
+POST http://localhost:3000/patients
+Content-Type: application/json
+
+{
+    "name":"Sandra Salas",
+    "age":20,
+    "document_type":"CC",
+    "document_number":"11188564789",
+    "gender":"Female",
+    "phone":"3043884422",
+    "email":"ss@gmail.com",
+    "status":"ACTIVE"
+}

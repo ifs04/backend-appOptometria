@@ -33,4 +33,25 @@ export class PatientController {
       res.status(500).json({ error: "Error fetching patient" });
     }
   }
+
+  public async createPatient(req: Request, res: Response){
+    const { name, age, document_type, document_number,gender,phone,email, status} = req.body;
+    try {
+      let body : PatientI = {
+        name,
+        age,
+        document_type,
+        document_number,
+        gender,
+        phone,
+        email,
+        status
+      };
+
+      const newPatient = await Patient.create({ ...body });
+      res.status(201).json(newPatient);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import sequelize  from "./src/database/connection";
+import {sequelize}  from "./src/database/connection";
 import { Appointment } from "./src/models/appointment";
 import { Delivery } from "./src/models/delivery";
 import { Frame } from "./src/models/frame";
