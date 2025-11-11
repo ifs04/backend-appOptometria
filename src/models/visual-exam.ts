@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connection";
-
 import { Appointment } from "./appointment";
 import { EyeExamI } from "./eye-exam";
 

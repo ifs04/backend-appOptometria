@@ -3,7 +3,7 @@ import {sequelize} from "../database/connection";
 
 
 export interface PatientI {
-  id?: number;
+  id?: number; 
   name: string;
   age: number;
   document_type: string;

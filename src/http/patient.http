@@ -10,7 +10,7 @@ GET {{baseUrl}}/patients/public
 ###
 
 ### Obtener un paciente por ID (SIN token)
-GET {{baseUrl}}/patients/public/3
+GET {{baseUrl}}/patients/public/7
 
 ###
 
