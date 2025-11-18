@@ -8,7 +8,7 @@ export class PatientController {
       const patients: PatientI[] = await Patient.findAll({
         where: { status: 'ACTIVE' },
       });
-      res.status(200).json({ patients });
+      res.status(200).json( patients );
     } catch (error) {
       res.status(500).json({ error: "Error fetching patients" });
     }

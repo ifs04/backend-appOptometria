@@ -8,7 +8,7 @@ export class OptometristController {
       const optometrists: OptometristI[] = await Optometrist.findAll({
         where: { status: 'ACTIVE' },
       });
-      res.status(200).json({ optometrists });
+      res.status(200).json( optometrists);
     } catch (error) {
       res.status(500).json({ error: "Error fetching optometrists" });
     }

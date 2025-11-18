@@ -6,7 +6,7 @@ export class VisualHistoryController {
   public async getAllVisualHistories(req: Request, res: Response) {
     try {
       const histories: VisualHistoryI[] = await VisualHistory.findAll({ where: { status: 'ACTIVE' } });
-      res.status(200).json({ histories });
+      res.status(200).json(histories);
     } catch (error) {
       res.status(500).json({ error: "Error fetching visual histories" });
     }

@@ -20,9 +20,8 @@ POST {{baseUrl}}/visual-histories/public
 Content-Type: application/json
 
 {
-  "patientId": 1,
-  "optometristId": 1,
-  "date": "2025-10-15",
+  "patient_id": 101,
+  "date": "2025-11-17",
   "observations": "Paciente con miopía leve. Se recomienda seguimiento."
 }
 
@@ -32,8 +31,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "patientId": 1,
-  "optometristId": 1,
+  "patient_id": 1,
   "date": "2025-10-15",
   "observations": "Paciente con miopía leve. Se recomienda seguimiento."
 }

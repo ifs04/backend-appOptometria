@@ -8,7 +8,7 @@ export class AppointmentController {
       const appointments: AppointmentI[] = await Appointment.findAll({
         where: { status: 'ACTIVE' },
       });
-      res.status(200).json({ appointments });
+      res.status(200).json(appointments );
     } catch (error) {
       res.status(500).json({ error: "Error fetching appointments" });
     }
@@ -45,7 +45,7 @@ export class AppointmentController {
         optometrist_id,
         status
       };
-
+      console.log(body);
       const newAppointment = await Appointment.create({ ...body });
       res.status(201).json(newAppointment);
     } catch (error: any) {
